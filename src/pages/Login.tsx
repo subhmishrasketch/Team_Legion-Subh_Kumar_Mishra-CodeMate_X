@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, Github, Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
 import codemateLogo from "@/assets/codemate-logo.png";
 
@@ -87,6 +87,20 @@ const Login = () => {
           <p className="mt-6 text-center text-sm text-muted-foreground">
             Don't have an account? <button className="text-primary hover:underline">Sign up</button>
           </p>
+          
+          {/* Social Media Links */}
+          <div className="mt-6 flex justify-center gap-4">
+            <motion.a href="https://github.com/subhmishrasketch/CodeMate" target="_blank" rel="noopener noreferrer"
+              whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.95 }}
+              className="flex items-center justify-center h-10 w-10 rounded-lg bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all">
+              <Github className="h-5 w-5" />
+            </motion.a>
+            <motion.a href="https://www.linkedin.com/in/subh-kumar-mishra-76a635374/" target="_blank" rel="noopener noreferrer"
+              whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.95 }}
+              className="flex items-center justify-center h-10 w-10 rounded-lg bg-muted text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all">
+              <Linkedin className="h-5 w-5" />
+            </motion.a>
+          </div>
         </motion.div>
       </div>
     </div>
