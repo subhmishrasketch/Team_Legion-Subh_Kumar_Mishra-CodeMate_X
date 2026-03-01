@@ -5,6 +5,9 @@
 CodeMate is a collaborative platform designed to help students find their perfect teammates, collaborate on innovative projects, and build something amazing together. Whether you're looking for teammates with specific skills, reviving abandoned ideas, or tracking your contributions through a competitive leaderboard, CodeMate makes it all seamless.
 
 ---
+#Deployed Link:
+https://codemate1609.netlify.app/
+---
 
 ## 💡 Why CodeMate?
 
