@@ -26,7 +26,7 @@ const Login = () => {
   return (
     <div className="flex min-h-screen">
       {/* Left branding */}
-      <div className="relative hidden flex-1 items-center justify-center gradient-login lg:flex">
+      <div className="relative hidden flex-1 items-center justify-center overflow-hidden gradient-login lg:flex">
         {/* animated blobs */}
         <div className="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-primary/30 animate-float blur-3xl" />
         <div className="absolute bottom-10 right-[-60px] h-96 w-96 rounded-full bg-secondary/20 animate-float" />
@@ -39,8 +39,9 @@ const Login = () => {
           <img
             src={codemateLogo}
             alt="CodeMate"
-            className="mb-6 max-h-48 max-w-[90%] rounded-2xl object-contain shadow-2xl animate-glow mx-auto"
+            className="mb-6 max-h-28 max-w-28 rounded-2xl object-contain shadow-2xl animate-glow"
           />
+          {/* decorative illustration */}
           <h1 className="mb-2 font-heading text-4xl font-bold text-primary-foreground text-gradient">
             CodeMate
           </h1>
