@@ -54,7 +54,7 @@ const Signup = () => {
           <img
             src={codemateLogo}
             alt="CodeMate"
-            className="mb-6 h-28 w-28 rounded-2xl object-contain shadow-2xl animate-glow"
+            className="mb-6 max-h-28 max-w-28 rounded-2xl object-contain shadow-2xl animate-glow"
           />
           <h1 className="mb-2 font-heading text-4xl font-bold text-primary-foreground text-gradient">
             Join CodeMate

@@ -39,7 +39,7 @@ const Login = () => {
           <img
             src={codemateLogo}
             alt="CodeMate"
-            className="mb-6 h-28 w-28 rounded-2xl object-contain shadow-2xl animate-glow"
+            className="mb-6 max-h-28 max-w-28 rounded-2xl object-contain shadow-2xl animate-glow"
           />
           {/* decorative illustration */}
           <img
@@ -73,7 +73,7 @@ const Login = () => {
           className="w-full max-w-md bg-card/90 backdrop-blur-md rounded-2xl p-10 shadow-2xl"
         >
           <div className="mb-6 flex items-center gap-3 lg:hidden">
-            <img src={codemateLogo} alt="CodeMate" className="h-10 w-10 rounded-lg object-contain" />
+            <img src={codemateLogo} alt="CodeMate" className="h-10 w-auto rounded-lg object-contain" />
             <div>
               <h1 className="font-heading text-xl font-bold">CodeMate</h1>
               <p className="text-xs text-muted-foreground">Code together. Build better.</p>
