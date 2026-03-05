@@ -41,7 +41,7 @@ The UI has received some finishing touches:
 
 ---
 #Deployed Link:
-https://codemate1609.netlify.app/
+https://codemate1609-ten.vercel.app/
 ---
 
 ## 💡 Why CodeMate?
