@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
-import { Users, FolderOpen, Calendar, TrendingUp, Award, BarChart3, PieChart, Activity, ArrowUp, ArrowDown } from "lucide-react";
+import { Users, FolderOpen, Calendar, TrendingUp, Award, BarChart3, PieChart, Activity, ArrowUp, ArrowDown, ShieldAlert, CheckCircle2, Clock, X } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
+import { AnimatePresence } from "framer-motion";
 
 const stats = [
   { label: "Total Students", value: "1,248", sub: "+32 this month", icon: Users, color: "text-primary", trend: "up" },
@@ -38,6 +41,37 @@ const item = { hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } };
 
 const AdminDashboard = () => {
   const { user } = useAuth();
+  const [complaints, setComplaints] = useState<any[]>([]);
+  const [selectedComplaint, setSelectedComplaint] = useState<any>(null);
+  const [showComplaintDetail, setShowComplaintDetail] = useState(false);
+
+  useEffect(() => {
+    // Load complaints from localStorage
+    try {
+      const complaintsKey = "complaints";
+      const stored = localStorage.getItem(complaintsKey);
+      const allComplaints = stored ? JSON.parse(stored) : [];
+      setComplaints(allComplaints);
+    } catch (err) {
+      console.error("Error loading complaints:", err);
+    }
+  }, []);
+
+  const resolveComplaint = (complaintId: string) => {
+    try {
+      const updated = complaints.map(c => 
+        c.id === complaintId ? { ...c, resolved: true, status: "resolved" } : c
+      );
+      setComplaints(updated);
+      localStorage.setItem("complaints", JSON.stringify(updated));
+      toast.success("Complaint marked as resolved! ✓");
+      setShowComplaintDetail(false);
+      setSelectedComplaint(null);
+    } catch (err) {
+      console.error("Error resolving complaint:", err);
+      toast.error("Failed to resolve complaint");
+    }
+  };
 
   return (
     <motion.div variants={container} initial="hidden" animate="show" className="space-y-8">
@@ -200,6 +234,131 @@ const AdminDashboard = () => {
           ))}
         </div>
       </motion.div>
+
+      {/* Complaints / Reports */}
+      <motion.div variants={item} className="rounded-xl border border-destructive/20 bg-gradient-to-br from-destructive/5 to-destructive/10 p-6 space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="font-heading text-lg font-bold flex items-center gap-2">
+            <ShieldAlert className="h-5 w-5 text-destructive" /> Student Complaints & Reports
+          </h2>
+          <Badge variant={complaints.filter(c => !c.resolved).length > 0 ? "destructive" : "outline"}>
+            {complaints.filter(c => !c.resolved).length} pending
+          </Badge>
+        </div>
+
+        {complaints.length === 0 ? (
+          <p className="text-sm text-muted-foreground">No complaints yet. Great community! 🎉</p>
+        ) : (
+          <div className="space-y-3">
+            {complaints.slice(-5).reverse().map((complaint) => (
+              <motion.button
+                key={complaint.id}
+                onClick={() => { setSelectedComplaint(complaint); setShowComplaintDetail(true); }}
+                whileHover={{ x: 4 }}
+                className={`w-full text-left rounded-lg border p-3 transition-all ${
+                  complaint.resolved 
+                    ? "border-border bg-card/30 opacity-60" 
+                    : "border-destructive/30 bg-destructive/10 hover:bg-destructive/15"
+                }`}
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold">{complaint.type}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">From {complaint.studentName}</p>
+                    <p className="text-xs text-muted-foreground">{complaint.date}</p>
+                  </div>
+                  {complaint.resolved ? (
+                    <CheckCircle2 className="h-5 w-5 text-success shrink-0" />
+                  ) : (
+                    <Clock className="h-5 w-5 text-destructive shrink-0" />
+                  )}
+                </div>
+              </motion.button>
+            ))}
+          </div>
+        )}
+      </motion.div>
+
+      {/* Complaint Detail Modal */}
+      <AnimatePresence>
+        {showComplaintDetail && selectedComplaint && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowComplaintDetail(false)}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/40 backdrop-blur-sm p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-2xl"
+            >
+              <div className="flex items-start justify-between mb-4">
+                <h3 className="font-heading text-lg font-bold">Complaint Details</h3>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setShowComplaintDetail(false)}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  <X className="h-5 w-5" />
+                </motion.button>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground mb-1">ISSUE TYPE</p>
+                  <p className="text-sm font-semibold">{selectedComplaint.type}</p>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground mb-1">FROM</p>
+                  <p className="text-sm font-semibold">{selectedComplaint.studentName}</p>
+                  <p className="text-xs text-muted-foreground">{selectedComplaint.studentEmail}</p>
+                  <p className="text-xs text-muted-foreground">{selectedComplaint.studentPhone}</p>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground mb-1">DESCRIPTION</p>
+                  <p className="text-sm text-muted-foreground bg-muted/50 p-3 rounded-lg">{selectedComplaint.description}</p>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground mb-1">SUBMITTED ON</p>
+                  <p className="text-sm">{selectedComplaint.date}</p>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground mb-1">STATUS</p>
+                  <Badge variant={selectedComplaint.resolved ? "secondary" : "destructive"}>
+                    {selectedComplaint.status.toUpperCase()}
+                  </Badge>
+                </div>
+              </div>
+
+              <div className="mt-6 flex gap-2">
+                {!selectedComplaint.resolved && (
+                  <motion.button
+                    onClick={() => resolveComplaint(selectedComplaint.id)}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex-1 rounded-lg gradient-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+                  >
+                    Mark as Resolved
+                  </motion.button>
+                )}
+                <motion.button
+                  onClick={() => setShowComplaintDetail(false)}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex-1 rounded-lg border border-border px-4 py-2.5 text-sm font-semibold hover:bg-muted transition-colors"
+                >
+                  Close
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Key Insights */}
       <motion.div variants={item} className="rounded-xl border border-success/20 bg-gradient-to-br from-success/5 to-success/10 p-6">

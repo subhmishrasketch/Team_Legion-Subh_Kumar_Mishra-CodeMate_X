@@ -353,7 +353,30 @@ const Login = () => {
               </AnimatePresence>
             </motion.button>
           </form>
-
+          {/* Try Demo Button */}
+          <motion.button 
+            type="button"
+            onClick={async () => {
+              setDemoMode(true);
+              setIsLoading(true);
+              try {
+                await login("student");
+                navigate("/dashboard");
+              } finally {
+                setIsLoading(false);
+              }
+            }}
+            disabled={isLoading}
+            className="h-11 w-full rounded-xl font-semibold text-primary border-2 border-primary bg-transparent hover:bg-primary/10 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            whileHover={!isLoading ? { scale: 1.02 } : {}}
+            whileTap={!isLoading ? { scale: 0.98 } : {}}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.62 }}
+          >
+            <Sparkles className="h-4 w-4" />
+            Try Demo
+          </motion.button>
           <motion.p 
             className="mt-8 text-center text-sm text-muted-foreground"
             initial={{ opacity: 0 }}

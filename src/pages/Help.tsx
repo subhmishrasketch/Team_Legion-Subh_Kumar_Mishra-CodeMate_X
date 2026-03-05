@@ -2,6 +2,7 @@ import { DashboardLayout } from "@/components/DashboardLayout";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
 import {
   HelpCircle, BookOpen, Shield, MessageSquare, ChevronDown, ChevronUp,
   FolderPlus, Users, Sparkles, Trophy, RefreshCw, Bell,
@@ -24,6 +25,7 @@ const faqs = [
 ];
 
 const Help = () => {
+  const { user } = useAuth();
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [complaintType, setComplaintType] = useState("");
   const [complaintDesc, setComplaintDesc] = useState("");
@@ -31,8 +33,49 @@ const Help = () => {
   const handleSubmitComplaint = (e: React.FormEvent) => {
     e.preventDefault();
     if (!complaintType || !complaintDesc) { toast.error("Please fill all fields"); return; }
-    toast.success("Your report has been submitted. We'll look into it! 🛡️");
-    setComplaintType(""); setComplaintDesc("");
+    
+    // Store complaint in localStorage
+    try {
+      const complaintId = `complaint_${Date.now()}`;
+      const complaint = {
+        id: complaintId,
+        studentName: user?.name || "Anonymous Student",
+        studentEmail: user?.email || "unknown@college.edu",
+        studentPhone: user?.phone || "N/A",
+        type: complaintType,
+        description: complaintDesc,
+        date: new Date().toLocaleString(),
+        status: "pending",
+        resolved: false
+      };
+      
+      const complaintsKey = "complaints";
+      const existingComplaints = localStorage.getItem(complaintsKey);
+      const allComplaints = existingComplaints ? JSON.parse(existingComplaints) : [];
+      allComplaints.push(complaint);
+      localStorage.setItem(complaintsKey, JSON.stringify(allComplaints));
+      
+      // Add admin notification
+      const notificationsKey = "adminNotifications";
+      const existingNotifs = localStorage.getItem(notificationsKey);
+      const allNotifs = existingNotifs ? JSON.parse(existingNotifs) : [];
+      allNotifs.push({
+        id: complaintId,
+        title: `📋 New Complaint: ${complaintType}`,
+        message: `From ${user?.name || "Student"}: ${complaintDesc.slice(0, 50)}...`,
+        type: "complaint",
+        timestamp: new Date().toLocaleString(),
+        read: false
+      });
+      localStorage.setItem(notificationsKey, JSON.stringify(allNotifs));
+      
+      toast.success("Your report has been submitted. We'll look into it! 🛡️");
+      setComplaintType(""); 
+      setComplaintDesc("");
+    } catch (err) {
+      console.error("Error submitting complaint:", err);
+      toast.error("Failed to submit complaint");
+    }
   };
 
   return (

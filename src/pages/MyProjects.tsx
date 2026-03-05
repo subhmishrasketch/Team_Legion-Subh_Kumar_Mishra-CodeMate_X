@@ -1,19 +1,22 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
-import { FolderOpen, Users, Clock, Plus, Copy, Trash2, X, Share2, UserX, Info } from "lucide-react";
+import { FolderOpen, Users, Clock, Plus, Copy, Trash2, X, Share2, UserX, Info, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 import { projects as defaultProjects } from "@/lib/projects";
 import { toast } from "sonner";
 
 
 const MyProjects = () => {
   const navigate = useNavigate();
+  const { user, demoMode } = useAuth();
   const [allProjects, setAllProjects] = useState(defaultProjects);
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [modalMode, setModalMode] = useState<"manage" | "details" | null>(null);
+  const [appliedProjects, setAppliedProjects] = useState<string[]>([]);
 
   useEffect(() => {
     // Load posted projects from localStorage
@@ -25,7 +28,17 @@ const MyProjects = () => {
     } catch (err) {
       console.error("Error loading posted projects:", err);
     }
-  }, []);
+
+    // Load user's applications
+    try {
+      const applicationsKey = `applications_${user?.email}`;
+      const apps = localStorage.getItem(applicationsKey);
+      const appliedList = apps ? JSON.parse(apps) : [];
+      setAppliedProjects(appliedList);
+    } catch (err) {
+      console.error("Error loading applications:", err);
+    }
+  }, [user]);
 
   const deleteProject = (title: string) => {
     setAllProjects(allProjects.filter(p => p.title !== title));
@@ -50,6 +63,38 @@ const MyProjects = () => {
     const url = `${base}/dashboard?project=${encodeURIComponent(selectedProject.title)}`;
     navigator.clipboard.writeText(url);
     toast.success("Project link copied to clipboard!");
+  };
+
+  const applyToProject = () => {
+    if (!user) {
+      toast.error("Please sign in to apply");
+      return;
+    }
+
+    try {
+      const applicationsKey = `applications_${user.email}`;
+      const updated = [...appliedProjects, selectedProject.title];
+      setAppliedProjects(updated);
+      localStorage.setItem(applicationsKey, JSON.stringify(updated));
+      
+      // Notify project owner
+      const projectNotifKey = `projectApplications_${selectedProject.title}`;
+      const existingApps = localStorage.getItem(projectNotifKey);
+      const allApps = existingApps ? JSON.parse(existingApps) : [];
+      allApps.push({
+        applicantName: user.name,
+        applicantEmail: user.email,
+        applicantPhone: user.phone || "N/A",
+        appliedDate: new Date().toLocaleString()
+      });
+      localStorage.setItem(projectNotifKey, JSON.stringify(allApps));
+      
+      toast.success(`✓ Application sent to ${selectedProject.title}!`);
+      setModalMode(null);
+    } catch (err) {
+      console.error("Error applying to project:", err);
+      toast.error("Failed to apply");
+    }
   };
 
   return (
@@ -263,16 +308,35 @@ const MyProjects = () => {
               </div>
 
               <div className="flex gap-3 p-6 border-t border-border/50">
-                <motion.button
-                  onClick={() => {
-                    setSelectedProject(null);
-                    setModalMode(null);
-                  }}
-                  className="flex-1 rounded-lg border border-border px-4 py-2.5 text-sm font-semibold hover:bg-muted transition-colors"
-                  whileHover={{ scale: 1.02 }}
-                >
-                  Close
-                </motion.button>
+                {!appliedProjects.includes(selectedProject?.title) ? (
+                  <>
+                    <motion.button
+                      onClick={applyToProject}
+                      className="flex-1 rounded-lg gradient-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Check className="h-4 w-4" /> Apply to Join
+                    </motion.button>
+                    <motion.button
+                      onClick={() => {
+                        setSelectedProject(null);
+                        setModalMode(null);
+                      }}
+                      className="flex-1 rounded-lg border border-border px-4 py-2.5 text-sm font-semibold hover:bg-muted transition-colors"
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      Close
+                    </motion.button>
+                  </>
+                ) : (
+                  <motion.button
+                    disabled
+                    className="flex-1 rounded-lg gradient-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground opacity-60 cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    <Check className="h-4 w-4" /> Already Applied
+                  </motion.button>
+                )}
               </div>
             </motion.div>
           </motion.div>
