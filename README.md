@@ -4,7 +4,6 @@
 
 CodeMate is a collaborative platform designed to help students find their perfect teammates, collaborate on innovative projects, and build something amazing together. Whether you're looking for teammates with specific skills, reviving abandoned ideas, or tracking your contributions through a competitive leaderboard, CodeMate makes it all seamless.
 
-> **Tip:** if you install the app or create a desktop shortcut and the icon looks fuzzy, make sure you have proper PWA/app icons. Run `npm run generate:icons` to produce 192×192 and 512×512 PNGs from the source logo and rebuild – these higher‑resolution files prevent the launcher from scaling up the tiny favicon.
 # deploy Link:
 https://codemate1609-ten.vercel.app/
 
