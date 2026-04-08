@@ -1,12 +1,12 @@
 {
-  "name": "CodeMate",
-  "short_name": "CodeMate",
-  "description": "CodeMate: Student collaboration platform for finding teams and building projects",
+  "name": "CodeMate X",
+  "short_name": "CodeMate X",
+  "description": "CodeMate X: AI-powered student collaboration platform for finding teams, building projects, and competitive ranking",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#ffffff",
+  "background_color": "#0f172a",
   "theme_color": "#3c50dc",
   "categories": ["productivity", "education"],
   "screenshots": [
@@ -35,16 +35,10 @@
       "purpose": "any"
     },
     {
-      "src": "icons/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "favicon.svg",
+      "src": "logo.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ],
   "shortcuts": [

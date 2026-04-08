@@ -1,0 +1,20 @@
+c27cfa1 Commit latest website with landing page refactor, branding updates, and Android support
+e8f5bcb Update README.md
+d73976d Update README.md
+2300c9d Update README.md
+97eaffb Update README.md
+238e1e1 fix: remove handled team requests immediately and sync stats
+354d2e2 Update code
+13fba5e Update README.md
+28691e8 Fix invite flow: add members directly and resolve filter bug; improve styling
+89a2584 ✨ Add PWA support, multi-user recommendation system, and test helpers
+f3249c8 feat: demo mode, real data persistence, project applications, and complaint system
+065409f fix: search blank-screen (import X); show GitHub in leaderboard profile; soften modal overlays
+9a41f85 remove placeholder graphic from login branding
+21d2ee3 fix: prevent logo cropping by removing overflow-hidden and adjust sizing
+459f755 Use max dimensions for logos instead of fixed size
+8c8f76e Fix logo cropping by using object-contain
+5ac3428 Refactor theme/colors, add demo mode, new signup page, responsive UI improvements
+ece6909 Merge branch 'main' of https://github.com/subhmishrasketch/CodeMate
+2a833de update svg
+1ed0742 Add deployed link to CodeMate README

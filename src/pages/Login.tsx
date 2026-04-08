@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
-import codemateLogo from "@/assets/codemate-logo.png";
+import { Logo } from "lucide-react";
 
 const Login = () => {
   const { login, demoMode, setDemoMode } = useAuth();
@@ -92,8 +92,8 @@ const Login = () => {
             transition={{ duration: 4, repeat: Infinity }}
           >
             <img
-              src={codemateLogo}
-              alt="CodeMate"
+              src="/logo.svg"
+              alt="CodeMate X"
               className="mb-6 max-h-32 max-w-32 rounded-3xl object-contain shadow-2xl shadow-primary/50 ring-4 ring-primary/20"
             />
           </motion.div>
@@ -104,7 +104,7 @@ const Login = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
-            CodeMate
+            CodeMate X
           </motion.h1>
           
           <motion.p 
@@ -203,10 +203,10 @@ const Login = () => {
           className="w-full max-w-md rounded-3xl border border-border/50 bg-card/70 backdrop-blur-2xl p-10 shadow-2xl"
         >
           <div className="mb-8 flex items-center gap-3 xl:hidden">
-            <img src={codemateLogo} alt="CodeMate" className="h-12 w-auto rounded-lg object-contain ring-2 ring-primary/20" />
+            <img src="/logo.svg" alt="CodeMate X" className="h-12 w-auto rounded-lg object-contain ring-2 ring-primary/20" />
             <div>
-              <h1 className="font-heading text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">CodeMate</h1>
-              <p className="text-xs text-muted-foreground">Code together.</p>
+              <h1 className="font-heading text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">CodeMate X</h1>
+              <p className="text-xs text-muted-foreground">Code together. Build better.</p>
             </div>
           </div>
 

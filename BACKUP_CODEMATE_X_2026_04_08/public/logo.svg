@@ -1,0 +1,61 @@
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" width="300" height="300">
+  <defs>
+    <linearGradient id="xGradientLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0891b2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0284c7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="xGradientRight" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#a855f7;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#9333ea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7e22ce;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="shadowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:0.6" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-opacity="0.3"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background base -->
+  <rect width="300" height="300" fill="#0f172a" opacity="0"/>
+  
+  <!-- 3D Shadow/Base -->
+  <rect x="40" y="240" width="220" height="20" rx="10" fill="url(#shadowGradient)"/>
+  
+  <!-- Left bar of X (Cyan) with 3D effect -->
+  <g filter="url(#shadow)">
+    <!-- Left edge/shadow -->
+    <path d="M 60 50 L 80 50 L 140 210 L 120 210 Z" fill="#0284c7" opacity="0.5"/>
+    <!-- Main left bar -->
+    <path d="M 75 50 L 150 210 L 130 210 L 55 50 Z" fill="url(#xGradientLeft)" filter="url(#glow)"/>
+    <!-- Right edge highlight -->
+    <path d="M 150 210 L 145 220 L 70 60 L 75 50 Z" fill="#06b6d4" opacity="0.6"/>
+  </g>
+  
+  <!-- Right bar of X (Purple) with 3D effect -->
+  <g filter="url(#shadow)">
+    <!-- Left edge/shadow -->
+    <path d="M 150 50 L 170 50 L 95 210 L 75 210 Z" fill="#7e22ce" opacity="0.5"/>
+    <!-- Main right bar -->
+    <path d="M 175 50 L 100 210 L 120 210 L 225 50 Z" fill="url(#xGradientRight)" filter="url(#glow)"/>
+    <!-- Right edge highlight -->
+    <path d="M 225 50 L 230 60 L 105 220 L 100 210 Z" fill="#a855f7" opacity="0.6"/>
+  </g>
+  
+  <!-- Central glow point -->
+  <circle cx="150" cy="130" r="8" fill="url(#xGradientLeft)" opacity="0.3" filter="url(#glow)"/>
+  <circle cx="150" cy="130" r="4" fill="#06b6d4" opacity="0.6"/>
+  
+  <!-- Top shine/reflection -->
+  <ellipse cx="150" cy="80" rx="60" ry="15" fill="#ffffff" opacity="0.08"/>
+</svg>

@@ -1,8 +1,8 @@
-# CodeMate
+# CodeMate X
 
 **Code together. Build better.**
 
-CodeMate is a collaborative platform designed to help students find their perfect teammates, collaborate on innovative projects, and build something amazing together. Whether you're looking for teammates with specific skills, reviving abandoned ideas, or tracking your contributions through a competitive leaderboard, CodeMate makes it all seamless.
+CodeMate X is a collaborative platform designed to help students find their perfect teammates, collaborate on innovative projects, and build something amazing together. Featuring AI-powered skill matching, competitive leaderboards, and comprehensive team management - whether you're looking for teammates with specific skills, reviving abandoned ideas, or tracking your contributions through rankings, CodeMate X makes it all seamless.
 
 # deploy Link:
 https://codemate1609-ten.vercel.app/

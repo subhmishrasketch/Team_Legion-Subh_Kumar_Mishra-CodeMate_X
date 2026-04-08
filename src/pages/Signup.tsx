@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
-import codemateLogo from "@/assets/codemate-logo.png";
 
 const Signup = () => {
   const { register, demoMode, setDemoMode } = useAuth();
@@ -110,12 +109,12 @@ const Signup = () => {
           className="relative z-10 flex flex-col items-center text-center px-8"
         >
           <img
-            src={codemateLogo}
-            alt="CodeMate"
+            src="/logo.svg"
+            alt="CodeMate X"
             className="mb-6 max-h-28 max-w-28 rounded-2xl object-contain shadow-2xl animate-glow"
           />
           <h1 className="mb-2 font-heading text-4xl font-bold text-primary-foreground text-gradient">
-            Join CodeMate
+            Join CodeMate X
           </h1>
           <p className="mb-4 text-lg font-medium text-primary-foreground/90">
             Create an account to start collaborating.
@@ -308,7 +307,7 @@ const Signup = () => {
                   <motion.div
                     className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, linear: true }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                   />
                   Creating...
                 </>
