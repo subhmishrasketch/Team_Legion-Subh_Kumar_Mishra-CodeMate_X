@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
-import { Logo } from "lucide-react";
 
 const Login = () => {
   const { login, demoMode, setDemoMode } = useAuth();

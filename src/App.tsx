@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { NotificationProvider } from "@/contexts/NotificationContext";
 import Index from "./pages/Index";
+import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import SmartMatching from "./pages/SmartMatching";
 import RevivalHub from "./pages/RevivalHub";
@@ -33,6 +34,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<Index />} />
+    <Route path="/login" element={<Login />} />
     <Route path="/signup" element={<Signup />} />
     <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
     <Route path="/smart-matching" element={<ProtectedRoute><SmartMatching /></ProtectedRoute>} />
