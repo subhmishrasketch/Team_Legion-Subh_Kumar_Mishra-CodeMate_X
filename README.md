@@ -38,11 +38,10 @@ The UI has received some finishing touches:
 
 
 ---
-#Deployed Link:
-https://codemate1609-ten.vercel.app/
+
 ---
 
-## 💡 Why CodeMate?
+## 💡 Why CodeMate X ?
 
 In traditional educational settings, finding the right teammates for projects is often a challenge. Students struggle with:
 - **Skill Matching**: Difficulty finding teammates with complementary skills
@@ -97,7 +96,7 @@ Find the perfect teammates based on:
 
 ## 🎨 Design & User Experience
 
-CodeMate features:
+CodeMate X features:
 - **Modern UI**: Built with React and Tailwind CSS
 - **Smooth Animations**: Framer Motion for fluid interactions
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile
@@ -154,25 +153,6 @@ CodeMate features:
 - Node.js 18+ or Bun
 - npm or Bun package manager
 
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/your-org/codemate.git
-cd codemate
-
-# Install dependencies
-npm install
-# or
-bun install
-
-# Start development server
-npm run dev
-# or
-bun dev
-```
-
-Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
 
 ### Build for Production
 
@@ -199,12 +179,12 @@ npm run test:watch
 
 ### Activity Points System
 Students earn points based on their contributions:
-- **Project Completion**: 2 points per project
+- **Project Completion**: 4 points per project
 - **Event Participation**: 1 point per event
 - **Leaderboard Position**: Displayed monthly
 
 ### Skill Categories
-CodeMate supports 20+ skills across:
+CodeMate X supports 20+ skills across:
 - **Frontend**: React, Flutter, UI/UX, Figma
 - **Backend**: Node.js, Python, Java, MongoDB, PostgreSQL
 - **AI/ML**: TensorFlow, ML/AI, Python
@@ -225,13 +205,8 @@ CodeMate supports 20+ skills across:
 
 ## 🎯 Roadmap
 
-- [ ] Real-time chat and collaboration
-- [ ] Video call integration
+- [ ] collaboration
 - [ ] Project portfolio showcase
-- [ ] Advanced analytics dashboard
-- [ ] Integration with GitHub for project tracking
-- [ ] Mobile app (React Native)
-- [ ] AI-powered skill recommendations
 - [ ] Certification system
 
 ---
@@ -241,10 +216,11 @@ CodeMate supports 20+ skills across:
 - **Team Leader**: Subh Kumar Mishra
 
 ### Core Members
-- **Shivam Mishra** - Full-stack Development
-- **Vinit Mishra** - UI/UX & Frontend
+- **Shivam Mishra** 
+- **Vinit Mishra** 
+- **Harsh Maurya**
 
 ## 📝 License
 
-CodeMate is developed for educational purposes.
+CodeMate X is developed for educational purposes.
  
