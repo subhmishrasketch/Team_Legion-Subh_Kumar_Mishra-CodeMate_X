@@ -678,14 +678,14 @@ const StudentDashboard = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={() => setSelectedProject(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-4">
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-lg p-4 pointer-events-auto" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
             <motion.div 
               initial={{ scale: 0.85, y: 40, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.85, y: 40, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-2xl max-h-[80vh] overflow-y-auto rounded-2xl border border-border bg-card shadow-2xl">
+              className="w-full max-w-2xl max-h-[80vh] overflow-y-auto rounded-2xl border border-border bg-card shadow-2xl relative z-[10000]">
               
               {/* Header with gradient and Back Button */}
               <div className="sticky top-0 border-b border-border bg-gradient-to-r from-primary/10 to-primary/5 p-6 backdrop-blur-sm">
@@ -869,14 +869,14 @@ const StudentDashboard = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={() => setSelectedProfile(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-4">
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-lg p-4 pointer-events-auto" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
             <motion.div 
               initial={{ scale: 0.85, y: 40, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.85, y: 40, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-2xl rounded-2xl border border-border/50 bg-card backdrop-blur-xl overflow-hidden shadow-2xl">
+              className="w-full max-w-2xl rounded-2xl border border-border/50 bg-card backdrop-blur-xl overflow-hidden shadow-2xl relative z-[10000]">
               
               {/* Header with gradient background */}
               <div className="h-40 bg-gradient-to-r from-cyan-400/30 via-blue-400/30 to-purple-400/30 relative overflow-hidden">
@@ -1104,14 +1104,14 @@ const StudentDashboard = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={() => setSelectedStat(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-4">
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-lg p-4 pointer-events-auto" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
             <motion.div 
               initial={{ scale: 0.85, y: 40, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.85, y: 40, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 } as any}
               onClick={(e) => e.stopPropagation()}
-              className={`w-full ${selectedStat === "Active Projects" || selectedStat === "Team Requests" ? "max-w-2xl" : "max-w-md"} rounded-2xl border border-border bg-card shadow-2xl overflow-hidden flex flex-col max-h-[80vh]`}>
+              className={`w-full ${selectedStat === "Active Projects" || selectedStat === "Team Requests" ? "max-w-2xl" : "max-w-md"} rounded-2xl border border-border bg-card shadow-2xl overflow-hidden flex flex-col max-h-[80vh] relative z-[10000]`}>
               
               <div className="sticky top-0 border-b border-border bg-gradient-to-r from-primary/10 to-primary/5 p-6 backdrop-blur-sm flex items-center justify-between">
                 <h2 className="font-heading text-2xl font-bold">{selectedStat}</h2>
