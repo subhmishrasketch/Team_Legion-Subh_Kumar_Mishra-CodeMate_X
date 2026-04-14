@@ -6,6 +6,8 @@ CodeMate X is a collaborative platform designed to help students find their perf
 ---
 ## Deployed link:
 https://codemate-x.vercel.app/
+## Drive link:
+https://1drv.ms/f/c/e018cd49a0ede9b9/IgD1PAt-8aRdS4CkXqa-_qh7AVzk4a9APBCx9wEV9SYwO5o?e=SVnrWN
 
 ---
 
