@@ -1,4 +1,4 @@
-import { Bell, User, LogOut } from "lucide-react";
+import { Bell, User, LogOut, Trophy, HelpCircle } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNotifications } from "@/contexts/NotificationContext";
@@ -188,6 +188,20 @@ export function AppHeader() {
                     whileHover={{ x: 4 }}
                   >
                     <User className="h-4 w-4" /> View Profile
+                  </motion.button>
+                  <motion.button 
+                    onClick={() => { navigate("/leaderboard"); setShowProfile(false); }}
+                    className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-foreground transition-all hover:bg-primary/10"
+                    whileHover={{ x: 4 }}
+                  >
+                    <Trophy className="h-4 w-4" /> Leaderboard
+                  </motion.button>
+                  <motion.button 
+                    onClick={() => { navigate("/help"); setShowProfile(false); }}
+                    className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-foreground transition-all hover:bg-primary/10"
+                    whileHover={{ x: 4 }}
+                  >
+                    <HelpCircle className="h-4 w-4" /> Help & Support
                   </motion.button>
                   <motion.button 
                     onClick={logout}

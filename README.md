@@ -20,42 +20,43 @@ CodeMate X solves these problems by providing a comprehensive ecosystem for stud
 
 ## ✨ Features
 
-### 🤝 Smart Matching
-Find the perfect teammates based on:
-- **Skill Compatibility**: Filter students by required skills (React, Python, Node.js, ML/AI, etc.)
-- **Availability**: See who's available to join your project
-- **Collaboration Score**: Check their track record and collaboration potential
-- **Points & Achievements**: View their activity points and completed projects
+### 🤖 AI-Powered Matching
+- **Skill Compatibility**: Filter students by required skills like React, Python, Node.js, ML/AI, and more
+- **Team Chemistry**: Match based on complementary skills, work styles, and collaboration compatibility
+- **Smart Team Building**: Auto-assemble balanced teams for every project type
+- **Skill Challenges**: Use challenges to sharpen skills and earn recognition while discovering teammates
 
-### 📋 Project Management
-- **Post Projects**: Share your ideas and requirements with the community
-- **My Projects**: Track your active and completed projects
-- **Revival Hub**: Adopt abandoned project ideas and give them a second chance
-- **Detailed Analytics**: Monitor project progress and team performance
+### 📋 Project Discovery & Collaboration
+- **Post Projects**: Share ideas, define requirements, and attract contributors
+- **Project Discovery**: Browse student-led projects and join teams mid-flight
+- **Revival Hub**: Adopt abandoned projects and revive promising ideas
+- **My Projects**: Manage active teams, project details, and progress in one place
 
-### 🏆 Leaderboard System
-- **Activity Points**: Earn points through completed projects and events
-  - Completing a project: 2 points
-  - Attending an event: 1 point
-- **Curriculum Integration**: Track real-world contribution metrics
-- **Rankings**: Compete with peers and celebrate achievements
+### 📈 Real-Time Analytics
+- **Team Productivity**: Track contribution graphs, project velocity, and completion health
+- **Advanced Admin Analytics**: Monitor campus-wide engagement, success rates, and collaboration metrics
+- **Performance Dashboards**: See live skill evolution, team performance, and project summaries
+
+### 🏆 Leaderboard & Rewards
+- **Activity Points**: Earn points for project work, events, and collaboration
+- **Rankings**: Climb the leaderboard and showcase achievement milestones
+- **Achievement Badges**: Highlight top performers and active contributors
+
+### 🌐 Community & Network
+- **Global Student Network**: Connect with learners from 50+ colleges
+- **Mentorship Connections**: Discover mentors and experienced collaborators in the community
+- **Opportunity Discovery**: Get noticed by recruiters and find internships or job leads
 
 ### 💬 Smart Notifications
-- **Real-time Updates**: Get notified about project opportunities, team invites, and milestones
-- **Customizable Alerts**: Control notification preferences
-- **Event Reminders**: Never miss important workshops, seminars, or deadlines
+- **Real-time Updates**: Receive alerts for team invites, project changes, and new matches
+- **Customizable Alerts**: Control your notification preferences
+- **Event Reminders**: Stay on top of workshops, deadlines, and campus events
 
 ### 👤 User Profiles
 - **Complete Profile Management**: Showcase your skills, projects, and achievements
-- **Adopted Ideas**: Display projects you've taken up from Revival Hub
-- **Department & Semester Info**: Help others understand your background
-- **Social Links**: Connect via LinkedIn and GitHub profiles
-
-### 📊 Admin Dashboard
-- **Analytics & Statistics**: Monitor platform usage and student engagement
-- **Event Management**: Organize workshops, hackathons, and collaborative events
-- **Performance Tracking**: View departmental and individual contributions
-- **Notifications Management**: Send important updates to students
+- **Adopted Ideas**: Display projects you've taken over from the Revival Hub
+- **Department & Semester Info**: Help others understand your academic profile
+- **Social Links**: Connect with GitHub and LinkedIn
 
 ---
 
@@ -99,16 +100,20 @@ CodeMate X features:
 | Route | Description | Role |
 |-------|-------------|------|
 | `/` | Landing page with login | Public |
+| `/login` | Login page | Public |
+| `/signup` | Signup page | Public |
 | `/dashboard` | Main hub with recommendations | Student/Admin |
-| `/smart-matching` | Find teammates by skills | Student |
+| `/smart-matching` | Find teammates and build teams | Student |
 | `/revival-hub` | Adopt abandoned ideas | Student |
 | `/leaderboard` | View rankings and achievements | Student |
-| `/my-projects` | Manage your projects | Student |
-| `/post-project` | Create a new project | Student |
-| `/profile` | Manage profile and adopted ideas | Student |
 | `/notifications` | View all notifications | Student |
-| `/help` | Help & support documentation | Student |
+| `/post-project` | Create a new project | Student |
+| `/my-projects` | Manage your projects | Student |
+| `/profile` | Manage profile and adopted ideas | Student |
 | `/analytics` | Admin panel with statistics | Admin |
+| `/skill-challenges` | Complete skill-building challenges | Student |
+| `/team-chemistry` | Explore team compatibility insights | Student |
+| `/help` | Help & support documentation | Student |
 
 ---
 
