@@ -75,8 +75,17 @@ export default function SocialFeatures() {
   const [liked, setLiked] = useState<string[]>([]);
   const navigate = useNavigate();
 
+  const baseFollowing = 10;
+  const baseLikes = 20;
+  const followedUsers = users.filter(u => u.following);
+  const totalFollowing = baseFollowing + followedUsers.length;
+  const totalLikes = baseLikes + liked.length;
+  const avgCapability = followedUsers.length
+    ? Math.round(followedUsers.reduce((sum, u) => sum + u.avgCapability, 0) / followedUsers.length)
+    : 86;
+
   const handleFollow = (userId: string) => {
-    setUsers(users.map(u =>
+    setUsers(prevUsers => prevUsers.map(u =>
       u.id === userId ? { ...u, following: !u.following } : u
     ));
     const user = users.find(u => u.id === userId);
@@ -84,7 +93,11 @@ export default function SocialFeatures() {
   };
 
   const handleLike = (userId: string) => {
-    setLiked(liked.includes(userId) ? liked.filter(id => id !== userId) : [...liked, userId]);
+    const isLiked = liked.includes(userId);
+    setLiked(prevLiked => isLiked ? prevLiked.filter(id => id !== userId) : [...prevLiked, userId]);
+    setUsers(prevUsers => prevUsers.map(u =>
+      u.id === userId ? { ...u, likes: u.likes + (isLiked ? -1 : 1) } : u
+    ));
   };
 
   const getCompatibilityColor = (compatibility: number) => {
@@ -233,18 +246,16 @@ export default function SocialFeatures() {
         className="grid gap-4 md:grid-cols-3"
       >
         <div className="rounded-lg border border-border bg-card p-4 text-center space-y-2">
-          <p className="text-3xl font-bold text-primary">{users.filter(u => u.following).length}</p>
+          <p className="text-3xl font-bold text-primary">{totalFollowing}</p>
           <p className="text-xs text-muted-foreground">Following</p>
         </div>
         <div className="rounded-lg border border-border bg-card p-4 text-center space-y-2">
-          <p className="text-3xl font-bold text-primary">{liked.length}</p>
-          <p className="text-xs text-muted-foreground">Liked Profiles</p>
+          <p className="text-3xl font-bold text-primary">{totalLikes}</p>
+          <p className="text-xs text-muted-foreground">Likes</p>
         </div>
         <div className="rounded-lg border border-border bg-card p-4 text-center space-y-2">
-          <p className="text-3xl font-bold text-primary">
-            {Math.round(users.filter(u => u.following).reduce((sum, u) => sum + u.compatibility, 0) / (users.filter(u => u.following).length || 1))}%
-          </p>
-          <p className="text-xs text-muted-foreground">Avg Compatibility</p>
+          <p className="text-3xl font-bold text-primary">{avgCapability}%</p>
+          <p className="text-xs text-muted-foreground">Avg Capability</p>
         </div>
       </motion.div>
     </div>

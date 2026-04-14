@@ -1,12 +1,13 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { FolderOpen, Users, Trophy, TrendingUp, Zap, Clock, Mail, Phone, UserPlus, Eye, Star, CheckCircle2, ArrowRight, ArrowLeft, Github, Linkedin, Award, BookOpen, MessageSquare, X, ExternalLink, Search, Sparkles } from "lucide-react";
+import { FolderOpen, Users, Trophy, TrendingUp, Zap, Clock, Mail, Phone, UserPlus, Eye, Star, CheckCircle2, ArrowRight, ArrowLeft, Github, Linkedin, Award, BookOpen, MessageSquare, X, ExternalLink, Search, Sparkles, DownloadCloud, Share2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { toDataURL } from "qrcode";
 import { initializeSampleData } from "@/lib/initSampleData";
 import SocialFeatures from "@/components/SocialFeatures";
 import { ANIMATIONS, VARIANTS } from "@/lib/animations";
@@ -121,6 +122,8 @@ const StudentDashboard = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedProfile, setSelectedProfile] = useState<any>(null);
   const [selectedStat, setSelectedStat] = useState<string | null>(null);
+  const [profileQrDataUrl, setProfileQrDataUrl] = useState<string | null>(null);
+  const qrSectionRef = useRef<HTMLDivElement | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
   const [selectedSkillFilter, setSelectedSkillFilter] = useState<string[]>([]);
@@ -139,6 +142,38 @@ const StudentDashboard = () => {
       document.body.style.overflow = originalOverflow;
     };
   }, [modalOpen]);
+
+  useEffect(() => {
+    if (!selectedProfile) {
+      setProfileQrDataUrl(null);
+      return;
+    }
+
+    const vcardLines = [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      `FN:${selectedProfile.name}`,
+      `ORG:${selectedProfile.department || "CodeMate X"}`,
+      "TITLE:Student",
+      selectedProfile.email ? `EMAIL:${selectedProfile.email}` : null,
+      selectedProfile.phone ? `TEL:${selectedProfile.phone}` : null,
+      selectedProfile.github ? `URL:${selectedProfile.github}` : null,
+      selectedProfile.linkedin ? `URL:${selectedProfile.linkedin}` : null,
+      "NOTE:Connect via CodeMate X",
+      "END:VCARD",
+    ].filter(Boolean).join("\n");
+
+    toDataURL(vcardLines, {
+      width: 260,
+      margin: 2,
+      color: {
+        dark: "#0f172a",
+        light: "#ffffff",
+      },
+    })
+      .then((url) => setProfileQrDataUrl(url))
+      .catch(() => setProfileQrDataUrl(null));
+  }, [selectedProfile]);
 
   const [realStats, setRealStats] = useState([
     { label: "Active Projects", value: "3", sub: "2 pending requests", icon: FolderOpen, color: "text-primary" },
@@ -222,7 +257,7 @@ const StudentDashboard = () => {
         { 
           label: "Activity Points", 
           value: realStats[2]?.value || "0", 
-          sub: "0 activities", 
+          sub: "8 activities", 
           icon: Trophy, 
           color: "text-success" 
         },
@@ -243,6 +278,36 @@ const StudentDashboard = () => {
   const handleJoin = (projectTitle: string) => {
     toast.success(`Request sent to join "${projectTitle}"! 🎉`);
     setSelectedProject(null);
+  };
+
+  const handleShareProfileQr = async () => {
+    if (!profileQrDataUrl || !selectedProfile) return;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `${selectedProfile.name} Profile QR`,
+          text: `Scan to connect with ${selectedProfile.name} on CodeMate X`,
+          url: profileQrDataUrl,
+        });
+        toast.success("QR shared successfully!");
+        return;
+      } catch (err) {
+        console.error("Share failed", err);
+      }
+    }
+
+    if (navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(profileQrDataUrl);
+        toast.success("QR code URL copied to clipboard");
+        return;
+      } catch (err) {
+        console.error("Clipboard write failed", err);
+      }
+    }
+
+    toast.info("Sharing is not supported on this device. Use the download button to save the QR.");
   };
 
   // keep the stats tiles in sync when the list of pending requests changes
@@ -918,7 +983,16 @@ const StudentDashboard = () => {
                     {selectedProfile.avatar}
                   </motion.div>
                   <div className="flex-1 pb-2">
-                    <h1 className="text-3xl font-bold text-foreground">{selectedProfile.name}</h1>
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <h1 className="text-3xl font-bold text-foreground">{selectedProfile.name}</h1>
+                      <button
+                        type="button"
+                        onClick={() => qrSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
+                        className="rounded-full border border-border px-4 py-2 text-xs font-semibold text-foreground hover:border-primary hover:text-primary transition-all"
+                      >
+                        Share QR
+                      </button>
+                    </div>
                     <div className="flex items-center gap-2 text-muted-foreground text-sm mt-2">
                       <Badge variant="outline" className="text-xs">{selectedProfile.department}</Badge>
                       <span className="font-medium">Sem {selectedProfile.semester}</span>
@@ -1080,6 +1154,60 @@ const StudentDashboard = () => {
                       <Linkedin className="h-5 w-5 group-hover:scale-110 transition-transform" /> LinkedIn
                     </motion.a>
                   </div>
+                </motion.div>
+
+                {/* Shareable QR Code */}
+                <motion.div
+                  ref={qrSectionRef}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.35 }}
+                  className="mb-8 rounded-3xl border border-slate-200/80 bg-slate-50/90 dark:border-slate-700/70 dark:bg-slate-900/80 p-6 shadow-sm"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">Share profile</p>
+                      <h3 className="text-lg font-semibold text-foreground">Scan to connect</h3>
+                      <p className="text-sm text-muted-foreground mt-1">Share a quick contact QR so others can scan and connect instantly.</p>
+                    </div>
+                    <div className="text-right text-xs text-muted-foreground">Profile QR</div>
+                  </div>
+
+                  {profileQrDataUrl ? (
+                    <div className="grid gap-4 lg:grid-cols-[auto_1fr] items-center">
+                      <img
+                        src={profileQrDataUrl}
+                        alt={`Share QR code for ${selectedProfile.name}`}
+                        onError={() => setProfileQrDataUrl(null)}
+                        className="mx-auto w-56 h-56 rounded-3xl border border-slate-200 bg-white p-3 shadow-sm"
+                      />
+                      <div className="space-y-3">
+                        <p className="text-sm text-muted-foreground">Scan this QR code to save the contact. It includes name, role, email, phone, and profile links for fast connection.</p>
+                        <div className="flex flex-wrap gap-3">
+                          <button
+                            type="button"
+                            onClick={handleShareProfileQr}
+                            className="inline-flex items-center justify-center gap-2 rounded-xl border border-border/60 bg-slate-950/5 px-4 py-3 text-sm font-semibold text-foreground hover:bg-slate-950/10 transition-all"
+                          >
+                            <Share2 className="h-4 w-4" />
+                            Share QR
+                          </button>
+                          <a
+                            href={profileQrDataUrl}
+                            download={`${selectedProfile.name.replace(/\s+/g, "_")}-profile-qr.png`}
+                            className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all"
+                          >
+                            <DownloadCloud className="h-4 w-4" />
+                            Download QR
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="rounded-3xl border border-dashed border-slate-300 bg-slate-100 px-6 py-12 text-center text-sm text-muted-foreground dark:bg-slate-900/70">
+                      Generating QR code for this profile…
+                    </div>
+                  )}
                 </motion.div>
 
               </div>
