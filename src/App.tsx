@@ -22,6 +22,8 @@ import Help from "./pages/Help";
 import Analytics from "./pages/Analytics";
 import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
+import { SkillChallenges } from "./pages/SkillChallenges";
+import { TeamChemistry } from "./pages/TeamChemistry";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +50,8 @@ const AppRoutes = () => (
     <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
     <Route path="/help" element={<ProtectedRoute><Help /></ProtectedRoute>} />
     <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
+    <Route path="/skill-challenges" element={<ProtectedRoute><SkillChallenges /></ProtectedRoute>} />
+    <Route path="/team-chemistry" element={<ProtectedRoute><TeamChemistry /></ProtectedRoute>} />
     <Route path="*" element={<NotFound />} />
   </Routes>
 );

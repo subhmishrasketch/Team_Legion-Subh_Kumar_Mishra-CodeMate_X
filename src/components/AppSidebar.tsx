@@ -1,6 +1,6 @@
 import {
   LayoutDashboard, FolderPlus, FolderOpen, Sparkles, RefreshCw,
-  Trophy, BarChart3, Code2, HelpCircle,
+  Trophy, BarChart3, Code2, HelpCircle, Zap, Users,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { NavLink } from "@/components/NavLink";
@@ -16,6 +16,8 @@ const studentItems = [
   { title: "My Projects", url: "/my-projects", icon: FolderOpen },
   { title: "Smart Matching", url: "/smart-matching", icon: Sparkles },
   { title: "Revival Hub", url: "/revival-hub", icon: RefreshCw },
+  { title: "Skill Challenges", url: "/skill-challenges", icon: Code2 },
+  { title: "Team Chemistry", url: "/team-chemistry", icon: Users },
   { title: "Leaderboard", url: "/leaderboard", icon: Trophy },
   { title: "Help & Support", url: "/help", icon: HelpCircle },
 ];
